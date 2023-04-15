@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1">
+  <meta name="maintainer" content="your_email_address@wherever.com" />
+
+  <!-- Main menu form -->
+  <form id="mainMenu">
+    <block>
+      <audio src="https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand3.wav"/>
+      <goto next="#menuOptions"/>
+    </block>
+  </form>
+
+  <!-- Menu options form -->
+  <form id="menuOptions">
+    <field name="option">
+      <grammar xml:lang="en-US" root="MYRULE" mode="dtmf">
+        <rule id="MYRULE" scope="public">
+          <one-of>
+            <item> 0 </item>
+            <item> 1 </item>
+            <item> 2 </item>
+            <item> 3 </item>
+            <item> 4 </item>
+            <item> 5 </item>
+            <item> 6 </item>
+            <item> 7 </item>
+            <item> 8 </item>
+            <item> 9 </item>
+          </one-of>
+        </rule>
+      </grammar>
+    </field>
+    <filled>
+      <if cond="option == 0">
+        <transfer dest="+8617665076059"/>
+      <else/>
+        <goto next="#submenu"/>
+      </if>
+    </filled>
+  </form>
+
+  <!-- Submenu form -->
+  <form id="submenu">
+    <field name="submenuOption">
+      <grammar xml:lang="en-US" root="MYRULE" mode="dtmf">
+        <rule id="MYRULE" scope="public">
+          <one-of>
+            <item> 1 </item>
+            <item> 2 </item>
+            <item> 3 </item>
+            <item> 4 </item>
+            <item> 5 </item>
+            <item> 6 </item>
+            <item> 7 </item>
+            <item> 8 </item>
+            <item> 9 </item>
+          </one-of>
+        </rule>
+      </grammar>
+      <noinput>
+        <prompt>
+          I did not hear you. Please try again.
+        </prompt>
+        <reprompt/>
+      </noinput>
+      <nomatch>
+        <prompt>
+          Is that a number? Please try again.
+        </prompt>
+        <reprompt/>
+      </nomatch>
+    </field>
+    <filled>
+        <if cond="submenuOption == 1">
+        <audio src="https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand3.wav"/>
+        <goto next="#finalMessage"/>
+
+        </if>
+        <if cond="submenuOption == 2">
+        <audio src="https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand3.wav"/>
+        <goto next="#finalMessage"/>
+
+        </if>
+
+      <!-- Add more conditions for submenuOption values (2-9) and respective audio URLs -->
+      <goto next="#finalMessage"/>
+    </filled>
+  </form>
+
+  <!-- Final message form -->
+  <form id="finalMessage">
+    <field name="finalOption">
+      <grammar xml:lang="en-US" root="MYRULE" mode="dtmf">
+        <rule id="MYRULE" scope="public">
+          <one-of>
+            <item> 0 </item>
+            <item> 1 </item>
+          </one-of>
+        </rule>
+      </grammar>
+    </field>
+    <filled>
+      <if cond="finalOption == 0">
+        <exit/>
+      <elseif cond="finalOption == 1"/>
+        <audio src="https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand3.wav"/>
+        <prompt>
+          Press 0 to hang up the call, press 1 to replay.
+        </prompt>
+        <goto next="#finalMessage"/>
+      </if>
+    </filled>
+  </form>
+
+</vxml>
+

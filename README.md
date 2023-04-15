@@ -14,4 +14,4 @@ cd frontend
 npm install
 npm start
 ```
-open `http://localhost:4000`
+open `http://localhost:3000`

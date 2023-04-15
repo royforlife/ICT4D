@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<vxml version = "2.1">
+
+<meta name="maintainer" content="your_email_address@wherever.com" />
+
+<form id="guessNumber">
+
+  <field name="guess">
+
+  <prompt>
+
+   Guess what the computer is thinking! Pick a number between 0 and 9.
+
+  </prompt>
+
+     <!-- This grammar is specifically for recognizing dtmf. -->
+
+     <grammar xml:lang="en-US" root = "MYRULE" mode="dtmf">
+
+      <rule id="MYRULE" scope = "public">
+
+        <one-of>
+
+          <item> 1 </item>
+
+          <item> 2 </item>
+
+          <item> 3 </item>
+
+          <item> 4 </item>
+
+          <item> 5 </item>
+
+          <item> 6 </item>
+
+          <item> 7 </item>
+
+          <item> 8 </item>
+
+          <item> 9 </item>
+
+          <item> 0 </item>
+
+        </one-of>
+
+       </rule>
+
+     </grammar>
+
+     <!-- This grammar is specifically for recognizing voice on the same input as the dtmf. -->
+
+     <grammar xml:lang="en-US" root = "MYRULE" mode="voice">
+
+      <rule id="MYRULE" scope = "public">
+
+        <one-of>
+
+         <item> one </item>
+
+         <item> two </item>
+
+         <item> three </item>
+
+         <item> four </item>
+
+         <item> five </item>
+
+         <item> six </item>
+
+         <item> seven </item>
+
+         <item> eight </item>
+
+         <item> nine </item>
+
+         <item> zero </item>
+
+        </one-of>
+
+      </rule>
+
+    </grammar>
+
+  <noinput>
+
+   <prompt>
+
+    I did not hear you. Please try again.
+
+   </prompt>
+
+   <reprompt/>
+
+  </noinput>
+
+  <nomatch>
+
+   <prompt>
+
+    Is that a number? Please try again.
+
+   </prompt>
+
+   <reprompt/>
+
+  </nomatch>
+
+  </field>
+
+  <filled namelist="guess" mode="all">
+
+   <prompt>
+
+    You said <value expr="guess" />. Your brain is enormous.
+
+   </prompt>
+
+   <goto next="#playAgain" />
+
+  </filled>
+
+</form>
+
+<form id="playAgain">
+
+   <field name="confirm" slot="confirm">
+
+   <grammar xml:lang="en-US" root = "RESPONSE">
+
+    <rule id="RESPONSE">
+
+     <one-of>
+
+       <item> yes </item>
+
+       <item> no </item>
+
+     </one-of>
+
+    </rule>
+
+   </grammar>
+
+    <prompt bargein="false">
+
+      Do you want to play again?
+
+    </prompt>
+
+   </field>
+
+  <filled namelist="confirm" mode="all">
+
+   <if cond="confirm == 'yes'">
+
+     <goto next="#guessNumber" />
+
+   <elseif cond="confirm == 'no'" />
+
+    <prompt>
+
+       Thank you! Goodbye!
+
+    </prompt>
+
+   </if>
+
+  </filled>
+
+</form>
+
+</vxml>

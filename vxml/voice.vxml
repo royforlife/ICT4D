@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version = "2.1" >
+<form>
+<block>
+<prompt>
+Here's a real audio sample in French:<break/>
+<audio src="http://www.few.vu.nl/~vbr240/voices/LTE/communique.wav"/>
+Mafounay
+</prompt>
+</block>
+</form>
+</vxml>

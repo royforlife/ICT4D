@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version = "2.1" >
+<menu id="menu1" dtmf="true">
+<prompt>select 1 for ICT4D or 2 for some other, less interesting
+course</prompt>
+<choice next="#form1"/>
+<choice next="#form2"/>
+</menu>
+<form id="form1">
+<block>
+<prompt>
+You chose the ICT4D course
+</prompt>
+</block>
+</form>
+<form id="form2">
+<block>
+<prompt>
+You chose some other less interesting course
+</prompt>
+</block>
+</form>
+</vxml>

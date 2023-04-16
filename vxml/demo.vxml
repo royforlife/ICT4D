@@ -5,7 +5,7 @@
   <!-- Main menu form -->
   <form id="mainMenu">
     <block>
-      <audio src="https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand3.wav"/>
+      <audio src="https://files.catbox.moe/ndbldu.wav"/>
       <goto next="#menuOptions"/>
     </block>
   </form>
@@ -32,28 +32,34 @@
     </field>
     <filled>
       <if cond="option == 0">
-        <transfer dest="+8617665076059"/>
+      <prompt>
+       You pressed 0. We gonna transfer you to the expert, wait a moment.
+        </prompt>
+        <transfer name="MyCall" dest="tel:+8617665076059"
+         bridge="true" connecttimeout="20s">
+
+        </transfer>
       <else/>
-        <goto next="#submenu"/>
+        <goto next="#submenuOptions"/>
       </if>
     </filled>
   </form>
 
-  <!-- Submenu form -->
-  <form id="submenu">
+
+  <form id="submenuOptions">
+    <block>
+    <prompt bargein="false">
+      This is level 2.
+    </prompt>
+      <audio src="https://files.catbox.moe/ndbldu.wav"/>
+
+    </block>
     <field name="submenuOption">
       <grammar xml:lang="en-US" root="MYRULE" mode="dtmf">
         <rule id="MYRULE" scope="public">
           <one-of>
             <item> 1 </item>
             <item> 2 </item>
-            <item> 3 </item>
-            <item> 4 </item>
-            <item> 5 </item>
-            <item> 6 </item>
-            <item> 7 </item>
-            <item> 8 </item>
-            <item> 9 </item>
           </one-of>
         </rule>
       </grammar>
@@ -71,23 +77,44 @@
       </nomatch>
     </field>
     <filled>
-        <if cond="submenuOption == 1">
-        <audio src="https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand3.wav"/>
-        <goto next="#finalMessage"/>
+      <if cond="submenuOption == 1">
+        <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <goto next="#playAgain"/>
+      <elif cond="submenuOption == 2" />
+        <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <goto next="#playAgain"/>
+      </if>
 
-        </if>
-        <if cond="submenuOption == 2">
-        <audio src="https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand3.wav"/>
-        <goto next="#finalMessage"/>
 
-        </if>
-
-      <!-- Add more conditions for submenuOption values (2-9) and respective audio URLs -->
-      <goto next="#finalMessage"/>
     </filled>
-  </form>
+</form>
 
-  <!-- Final message form -->
+<form id="playAgain">
+   <field name="confirm" slot="confirm">
+   <grammar xml:lang="en-US" root = "RESPONSE">
+    <rule id="RESPONSE">
+     <one-of>
+       <item> yes </item>
+       <item> no </item>
+     </one-of>
+    </rule>
+   </grammar>
+    <prompt bargein="false">
+      Do you want to replay?
+    </prompt>
+   </field>
+  <filled namelist="confirm" mode="all">
+   <if cond="confirm == 'yes'">
+     <goto next="#submenu" />
+   <elseif cond="confirm == 'no'" />
+    <prompt>
+       Thank you! Goodbye!
+    </prompt>
+   </if>
+  </filled>
+</form>
+
+
   <form id="finalMessage">
     <field name="finalOption">
       <grammar xml:lang="en-US" root="MYRULE" mode="dtmf">

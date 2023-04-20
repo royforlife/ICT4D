@@ -9,6 +9,8 @@
         This is VXML platform for knowledge sharing in Mali, you can press 0 to transfer to the expert, or press 1 to 9 to listen to the menu.
         </prompt>
       <audio src="https://files.catbox.moe/ndbldu.wav"/>
+      <audio src="https://files.catbox.moe/yzrqet.mp3"/>
+
       <goto next="#menuOptions"/>
     </block>
   </form>
@@ -93,54 +95,70 @@
           Option 1 is selected.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <audio src="https://files.catbox.moe/5wv4ak.wav"/>
+        <submit next="http://127.0.0.1:4000/question?params=title1&amp;only_url=1"
+            method="get"
+            namelist="submenuOption"
+            enctype="application/x-www-form-urlencoded"
+            fetchaudio="audioFile"
+        />
+        <audio srcexpr="audioFile"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 2" />
         <prompt>
           Option 2 is selected.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <audio src="https://files.catbox.moe/5wv4ak.wav"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 3" />
         <prompt>
           Option 3 is selected.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <audio src="https://files.catbox.moe/5wv4ak.wav"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 4" />
         <prompt>
           Option 4 is selected.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <audio src="https://files.catbox.moe/5wv4ak.wav"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 5" />
         <prompt>
           Option 5 is selected.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <audio src="https://files.catbox.moe/5wv4ak.wav"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 6" />
         <prompt>
           Option 6 is selected.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <audio src="https://files.catbox.moe/5wv4ak.wav"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 7" />
         <prompt>
           Option 7 is selected.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <audio src="https://files.catbox.moe/5wv4ak.wav"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 8" />
         <prompt>
           Option 8 is selected.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <audio src="https://files.catbox.moe/5wv4ak.wav"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 9" />
         <prompt>
           Option 9 is selected.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
+        <audio src="https://files.catbox.moe/5wv4ak.wav"/>
         <goto next="#playAgain"/>
       </if>
 

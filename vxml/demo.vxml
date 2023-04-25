@@ -6,8 +6,10 @@
   <form id="mainMenu">
     <block>
         <prompt>
-        This is VXML platform for knowledge sharing in Mali, you can press 0 to transfer to the expert, or press 1 to 9 to listen to the menu.
+        This is VXML platform for knowledge sharing in Mali, you can press 0 to transfer to the expert, 
+        1 to listen to advertisement or press 2 to 9 to listen to the menu.
         </prompt>
+        
       <audio src="https://files.catbox.moe/ndbldu.wav"/>
       <audio src="https://files.catbox.moe/yzrqet.mp3"/>
 
@@ -52,6 +54,7 @@
 
 
   <form id="submenuOptions">
+    <var name="audioFile" expr="''"/>
     <block>
     <prompt bargein="false">
       This is level 2. In this level, you can choose from 1 to 9.
@@ -92,18 +95,25 @@
     <filled>
       <if cond="submenuOption == 1">
         <prompt>
-          Option 1 is selected.
+            Option 1 is selected.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
-        <audio src="https://files.catbox.moe/5wv4ak.wav"/>
-        <submit next="http://127.0.0.1:4000/question?params=title1&amp;only_url=1"
-            method="get"
-            namelist="submenuOption"
-            enctype="application/x-www-form-urlencoded"
-            fetchaudio="audioFile"
-        />
-        <audio srcexpr="audioFile"/>
-        <goto next="#playAgain"/>
+        <!-- <audio src="https://files.catbox.moe/5wv4ak.wav"/> -->
+
+        <property name="fetchtimeout" value="30s"/> <!-- Optional: Set a fetch timeout -->
+        <subdialog src="https://files.catbox.moe/146m1f.php"
+                    method="get"
+                    namelist="submenuOption"
+                    enctype="application/x-www-form-urlencoded"
+                    fetchaudio="audioFile"
+                    name="dataResult"
+                    return="dataResult.audioFile">
+            <filled>
+                <assign name="audioFile" expr="dataResult.audioFile"/>
+                <audio expr="audioFile"/>
+                <goto next="#playAgain"/>
+            </filled>
+        </subdialog>
       <elif cond="submenuOption == 2" />
         <prompt>
           Option 2 is selected.

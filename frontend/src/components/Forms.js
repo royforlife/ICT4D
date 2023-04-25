@@ -101,6 +101,6 @@ export function QuestionForm({ onQuestionAdded }) {
   };
 
   return (
-    <BaseForm fields={{ title: '', content: '' }} onSubmit={onSubmit} />
+    <BaseForm fields={{ title: '', content: '' }} onSubmit={onSubmit} submitLabel='Go' />
   );
 }

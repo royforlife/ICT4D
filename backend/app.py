@@ -160,4 +160,4 @@ def route_question():
         return jsonify({'status': 'success', 'message': 'question deleted successfully', 'code': 200}), 200
 
 if __name__ == '__main__':
-    app.run(port=4000, debug=True)
+    app.run(host="0.0.0.0", port=4000, debug=True)

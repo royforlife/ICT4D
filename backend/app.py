@@ -159,6 +159,5 @@ def route_question():
         db.session.commit()
         return jsonify({'status': 'success', 'message': 'question deleted successfully', 'code': 200}), 200
 
-
 if __name__ == '__main__':
     app.run(port=4000, debug=True)

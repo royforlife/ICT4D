@@ -1,4 +1,9 @@
-const API_BASE_URL = 'http://127.0.0.1:4000';
+// const API_BASE_URL = 'http://127.0.0.1:4000';
+
+// get API_BASE_URL from .env only if process.env.REACT_APP_API_BASE_URL is defined
+// otherwise, use default value 'http://127.0.0.1:4000'
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://127.0.0.1:4000'
 
 async function fetchWrapper(url, options = {}) {
   const response = await fetch(url, options);

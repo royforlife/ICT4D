@@ -1,5 +1,7 @@
+// src/components/Question.js
 import React, { useState } from 'react';
-import AnswerForm from './AnswerForm';
+import { Card, CardContent, CardActions, Typography, Button } from '@material-ui/core';
+import { AnswerForm } from './Forms';
 
 function Question({ question }) {
   const [showAnswerForm, setShowAnswerForm] = useState(false);
@@ -9,16 +11,22 @@ function Question({ question }) {
   };
 
   return (
-    <div className="question">
-      <h3>{question.title}</h3>
-      <p>{question.content}</p>
-      {question.answer && <p>{question.answer}</p>}
-      {question.recording_url && (
-        <audio src={question.recording_url} controls></audio>
-      )}
-      <button onClick={handleAnswerClick}>Answer</button>
+    <Card>
+      <CardContent>
+        <Typography variant="h5">{question.title}</Typography>
+        <Typography variant="body1">{question.content}</Typography>
+        {question.answer && <Typography variant="body2">{question.answer}</Typography>}
+        {question.recording_url && (
+          <audio src={question.recording_url} controls></audio>
+        )}
+      </CardContent>
+      <CardActions>
+        <Button onClick={handleAnswerClick} variant="outlined">
+          Answer
+        </Button>
+      </CardActions>
       {showAnswerForm && <AnswerForm questionId={question.id} />}
-    </div>
+    </Card>
   );
 }
 

@@ -1,4 +1,8 @@
+// src/components/SearchBar.js
 import React, { useState } from 'react';
+import { TextField, Button } from '@material-ui/core';
+import { Search } from '@material-ui/icons';
+import './components.css';
 
 function SearchBar({ onSearch }) {
   const [keyword, setKeyword] = useState('');
@@ -13,14 +17,17 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Search"
+    <form onSubmit={handleSubmit} className="search-bar">
+      <TextField
+        label="Search"
         value={keyword}
         onChange={handleChange}
+        margin="normal"
+        variant="outlined"
       />
-      <button type="submit">Search</button>
+      <Button type="submit" variant="contained" color="primary" style={{height: 56 /*set location*/ }}>
+        <Search />
+      </Button>
     </form>
   );
 }

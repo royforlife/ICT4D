@@ -1,6 +1,7 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
-import AuthForm from './components/AuthForm';
-import QuestionForm from './components/QuestionForm';
+import { Container, Box, Typography } from '@material-ui/core';
+import { AuthForm, QuestionForm } from './components/Forms';
 import SearchBar from './components/SearchBar';
 import Question from './components/Question';
 import { getQuestions } from './utils/api';
@@ -28,26 +29,27 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <header>
-        <h1>Q&A Website</h1>
+    <Container maxWidth="md">
+      <Box my={4}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          MilaMala
+        </Typography>
         {!loggedIn && <AuthForm onAuth={handleAuth} />}
-      </header>
-
-      <SearchBar onSearch={handleSearch} />
-
-      {loggedIn && (
-        <QuestionForm
-          onQuestionAdded={() => handleSearch(searchKeyword)}
-        />
-      )}
-
-      {Array.isArray(questions['questions'])
-        ? questions['questions'].map((question) => (
-            <Question key={question.id} question={question} />
-          ))
-        : null}
-    </div>
+        <SearchBar onSearch={handleSearch} />
+        {loggedIn && (
+          <QuestionForm
+            onQuestionAdded={() => handleSearch(searchKeyword)}
+          />
+        )}
+        {Array.isArray(questions['questions'])
+          ? questions['questions'].map((question) => (
+              <Box my={2} key={question.id}>
+                <Question question={question} />
+              </Box>
+            ))
+          : null}
+      </Box>
+    </Container>
   );
 }
 

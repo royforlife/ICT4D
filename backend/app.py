@@ -65,7 +65,7 @@ def route_register():
         new_user = User(username, password)
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({'status': 'success', 'message': 'user created successfully', 'code': 200}), 200
+        return jsonify({'status': 'success', 'message': 'user created successfully', 'username': username,'code': 200}), 200
 
 @app.route('/login', methods=['POST'])
 def route_login():
@@ -83,7 +83,7 @@ def route_login():
         if current_credentials != user.password:
             return jsonify({'status': 'error', 'message': 'password is incorrect', 'code': 400}), 400
         token = utils.generate_token(username)
-        return jsonify({'status': 'success', 'message': 'login successful', 'code': 200, 'token': token}), 200
+        return jsonify({'status': 'success', 'message': 'login successful', 'username': username, 'code': 200, 'token': token}), 200
 
 @app.route('/question', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def route_question():

@@ -6,6 +6,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### edit URL IP address
+
+if you deployment in a server with an IP address, you should edit the frontend/util/api.js 
+replace the "http://127.0.0.1:4000" with "http://{IP_address}:4000" 
+
 ### install 
 
 ```

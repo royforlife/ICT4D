@@ -2,4 +2,6 @@ flask
 flask_sqlalchemy
 flask-restful
 flask-jwt-extended
+sqlalchemy_utils
 passlib
+flask_cors

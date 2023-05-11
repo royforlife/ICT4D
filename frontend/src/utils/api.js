@@ -11,9 +11,10 @@ async function fetchWrapper(url, options = {}) {
   if (response.status === 200) {
     return await response.json();
   } else {
-    throw new Error(response.status);
+    throw new Error(`No more questions found`);
   }
 }
+
 
 export async function register(username, password) {
   return fetchWrapper(`${API_BASE_URL}/register`, {
@@ -29,15 +30,17 @@ export async function login(username, password) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password }),
   });
+
 }
 
 
-export async function getQuestions(keyword = '') {
+
+export async function getQuestions(keyword = '', page = 1) {
   return fetchWrapper(
-    `${API_BASE_URL}/question?page=1&params=${encodeURIComponent(keyword)}`
-    // `${API_BASE_URL}/question?page=1`
+    `${API_BASE_URL}/question?page=${page}&params=${encodeURIComponent(keyword)}`
   );
 }
+
 
 export async function createQuestion(title, content) {
   return fetchWrapper(`${API_BASE_URL}/question`, {

@@ -42,7 +42,7 @@
       <prompt>
        You pressed 0. We gonna transfer you to the expert, wait a moment.
         </prompt>
-        <transfer name="MyCall" dest="tel:+8617665076059"
+        <transfer name="MyCall" dest="tel:+31 xxxxxxx"
          bridge="true" connecttimeout="20s">
 
         </transfer>

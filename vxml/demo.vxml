@@ -11,12 +11,9 @@
         </prompt>
         
       <audio src="https://files.catbox.moe/ndbldu.wav"/>
-      <audio src="https://files.catbox.moe/yzrqet.mp3"/>
-
       <goto next="#menuOptions"/>
     </block>
   </form>
-
   <!-- Menu options form -->
   <form id="menuOptions">
     <field name="option">
@@ -42,16 +39,15 @@
       <prompt>
        You pressed 0. We gonna transfer you to the expert, wait a moment.
         </prompt>
-        <transfer name="MyCall" dest="tel:+31 xxxxxxx"
+        <transfer name="MyCall" dest="tel:+31 12345678"
          bridge="true" connecttimeout="20s">
 
         </transfer>
-      <else/>
+      <else />
         <goto next="#submenuOptions"/>
       </if>
     </filled>
   </form>
-
 
   <form id="submenuOptions">
     <var name="audioFile" expr="''"/>
@@ -95,31 +91,24 @@
     <filled>
       <if cond="submenuOption == 1">
         <prompt>
-            Option 1 is selected.
+            Option 1 is selected. Next you will listen "we have found answer" which cantains English and French.
+            And then you will listen to the advertisement.
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
-        <!-- <audio src="https://files.catbox.moe/5wv4ak.wav"/> -->
-
-        <property name="fetchtimeout" value="30s"/> <!-- Optional: Set a fetch timeout -->
-        <subdialog src="https://files.catbox.moe/146m1f.php"
-                    method="get"
-                    namelist="submenuOption"
-                    enctype="application/x-www-form-urlencoded"
-                    fetchaudio="audioFile"
-                    name="dataResult"
-                    return="dataResult.audioFile">
-            <filled>
-                <assign name="audioFile" expr="dataResult.audioFile"/>
-                <audio expr="audioFile"/>
-                <goto next="#playAgain"/>
-            </filled>
-        </subdialog>
+        <goto next="#option1"/>
+        <goto next="#playAgain"/>
+        
       <elif cond="submenuOption == 2" />
         <prompt>
-          Option 2 is selected.
+          Option 2 is selected. Next you will listen "we have found answer" which cantains English and French.
+            And then you will listen to the voice of answer from our website database
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
         <audio src="https://files.catbox.moe/5wv4ak.wav"/>
+        <goto next="#option2"/>
+
+
+      <submit next="http://45.43.62.100:4000/question?prompt=1" method="GET"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 3" />
         <prompt>
@@ -127,6 +116,7 @@
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
         <audio src="https://files.catbox.moe/5wv4ak.wav"/>
+        <goto next="#option3"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 4" />
         <prompt>
@@ -134,6 +124,7 @@
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
         <audio src="https://files.catbox.moe/5wv4ak.wav"/>
+        <goto next="#option3"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 5" />
         <prompt>
@@ -141,6 +132,7 @@
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
         <audio src="https://files.catbox.moe/5wv4ak.wav"/>
+        <goto next="#option3"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 6" />
         <prompt>
@@ -148,6 +140,7 @@
         </prompt>
         <audio src="https://files.catbox.moe/a5k27r.wav"/>
         <audio src="https://files.catbox.moe/5wv4ak.wav"/>
+        <goto next="#option3"/>
         <goto next="#playAgain"/>
       <elif cond="submenuOption == 7" />
         <prompt>
@@ -176,6 +169,34 @@
     </filled>
 </form>
 
+<form id="option1">
+  <block>
+    <submit next="http://45.43.62.100:4000/question?prompt=1" method="GET"/>
+  </block>
+  <goto next="#playAgain"/>
+</form>
+
+<form id="option2">
+  <block>
+    <submit next="http://45.43.62.100:4000/question?prompt=1" method="GET"/>
+  </block>
+  <goto next="#playAgain"/>
+</form>
+
+<form id="option3">
+  <block>
+    <submit next="http://45.43.62.100:4000/question?prompt=1" method="GET"/>
+  </block>
+  <goto next="#playAgain"/>
+</form>
+
+<form id="option4">
+  <block>
+    <submit next="http://45.43.62.100:4000/question?prompt=1" method="GET"/>
+  </block>
+  <goto next="#playAgain"/>
+</form>
+
 <form id="playAgain">
    <field name="confirm" slot="confirm">
    <grammar xml:lang="en-US" root = "RESPONSE">
@@ -192,8 +213,8 @@
    </field>
   <filled namelist="confirm" mode="all">
    <if cond="confirm == 'yes'">
-     <goto next="#submenu" />
-   <elseif cond="confirm == 'no'" />
+     <goto next="#submenuOptions"/>
+   <elseif cond="confirm == 'no'"/>
     <prompt>
        Thank you! Goodbye!
     </prompt>
@@ -201,30 +222,4 @@
   </filled>
 </form>
 
-
-  <form id="finalMessage">
-    <field name="finalOption">
-      <grammar xml:lang="en-US" root="MYRULE" mode="dtmf">
-        <rule id="MYRULE" scope="public">
-          <one-of>
-            <item> 0 </item>
-            <item> 1 </item>
-          </one-of>
-        </rule>
-      </grammar>
-    </field>
-    <filled>
-      <if cond="finalOption == 0">
-        <exit/>
-      <elseif cond="finalOption == 1"/>
-        <audio src="https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand3.wav"/>
-        <prompt>
-          Press 0 to hang up the call, press 1 to replay.
-        </prompt>
-        <goto next="#finalMessage"/>
-      </if>
-    </filled>
-  </form>
-
 </vxml>
-

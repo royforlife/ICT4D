@@ -102,7 +102,7 @@ def route_question():
     elif request.method == 'GET':
         page = request.args.get('page', 1, type=int)
         params = request.args.get('params', None, type=str)
-        only_url = request.args.get('only_url', None, type=str)
+        prompt = request.args.get('prompt', None, type=str)
         condition = decode_params(params)
         if page is None:
             return jsonify({'status': 'error', 'message': 'page is missing', 'code': 400}), 400
@@ -122,12 +122,25 @@ def route_question():
                 'answer': question.answer,
                 'recording_url': question.recording_url
             })
-        if only_url is not None:
+        if prompt is not None:
             # only return string of recording_url
             if len(items) == 0:
                 return "sorry, no result", 400
             else:
-                return items[0]['recording_url'], 200
+                # Create a VXML response with the recording URL
+                # vxml_response = f'<?xml version="1.0"?><vxml version="2.1"><form><block><audio src="{items[0]["recording_url"]}"/></block></form></vxml>'
+                vxml_response = """
+                    <?xml version="1.0" ?>
+                    <vxml version="2.1" xml:lang="en-US">
+                        <form>
+                            <block>
+                                
+                                <prompt>{}</prompt>
+                            </block>
+                        </form>
+                    </vxml>
+                    """.format(items[0]["answer"])
+                return vxml_response, 200
         return jsonify({'status': 'success', 'message': 'questions retrieved successfully', 'code': 200, 'questions': items}), 200
 
     elif request.method == 'PUT':
